@@ -1,0 +1,18 @@
+version: "2"
+services:
+        nginx:
+                image: tu6ge/nginx_lua:2
+                volumes:
+                        - ./nginx.conf:/usr/local/nginx/conf/nginx.conf
+                        - ./www.lua:/home/www.lua
+                        - ./redis.lua:/home/redis.lua
+                ports:
+                        - "8081:80"
+                links:
+                        - redis:redis
+                depends_on:
+                        - redis
+        redis:
+                image: redis
+                ports:
+                        - "16379:6379"
